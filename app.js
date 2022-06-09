@@ -32,7 +32,7 @@ function reset() {
 set.addEventListener("click", function () {
   n = prompt("Please enter a number(<=100):"); //ask for number
   //判斷 n大小
-  if (n > 100) {
+  while (n > 100 || n < 0 || isNaN(n) == true) {
     n = prompt("Please enter the correct number:");
   }
   //find out all divs, then use forEach() to delete them
