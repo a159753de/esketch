@@ -1,60 +1,66 @@
 const container = document.querySelector(".container");
-const normal = document.querySelector(".normal");
-const small = document.querySelector(".small");
-//create grids divs
-let array = [];
-let cell = document.createElement("div");
+const set = document.querySelector(".Set");
+let n;
+let div;
+
+//initial page
 for (let i = 1; i <= 16; i++) {
   for (let j = 1; j <= 16; j++) {
-    cell.classList.add(`cell`);
-    container.appendChild(cell);
-    array.push(cell);
+    div = document.createElement("div");
+    container.appendChild(div);
+    div.style.width = `${100 / 16}%`;
+    div.style.height = `${100 / 16}%`;
   }
 }
-hover();
+colorGrids();
 
-//color grids
-function hover() {
-  array.forEach((e) => {
-    e.addEventListener("mouseover", function () {
-      e.style.backgroundColor = "rgba(255, 0, 149, 0.411)";
-    });
-  });
-}
-
-//click button
-
-normal.addEventListener("click", function () {
-  container.removeChild(cell);
-  normalGrids();
-});
-small.addEventListener("click", function () {
-  container.removeChild(cell);
-  smallGrids();
-});
-
-//normal(還沒成功)
-function normalGrids() {
-  let array = [];
+//maybe it will not be added in
+/*
+function reset() {
   for (let i = 1; i <= 16; i++) {
     for (let j = 1; j <= 16; j++) {
-      cell.classList.add(`cell`);
-      container.appendChild(cell);
-      array.push(cell);
+      div = document.createElement("div");
+      container.appendChild(div);
+      div.style.width = `${100 / n}%`;
+      div.style.height = `${100 / n}%`;
     }
   }
-  hover();
 }
+*/
 
-//small
-function smallGrids() {
-  let array = [];
-  for (let i = 1; i <= 8; i++) {
-    for (let j = 1; j <= 8; j++) {
-      cell.classList.add(`cell`);
-      container.appendChild(cell);
-      array.push(cell);
+//set button
+set.addEventListener("click", function () {
+  n = prompt("Please enter a number(<=100):"); //ask for number
+  //判斷 n大小
+  if (n > 100) {
+    n = prompt("Please enter the correct number:");
+  }
+  //find out all divs, then use forEach() to delete them
+  const divItems = document.querySelectorAll("div");
+  divItems.forEach((div) => {
+    container.removeChild(div);
+  });
+  //create new grid based on n
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      div = document.createElement("div");
+      div.classList.add(`cell`);
+      container.appendChild(div);
+      //let divs can fit the container
+      div.style.width = `${100 / n}%`;
+      div.style.height = `${100 / n}%`;
     }
   }
-  hover();
+  // color
+  colorGrids();
+});
+
+//colorgrids function
+function colorGrids() {
+  const divItems = document.querySelectorAll("div");
+  divItems.forEach((div) => {
+    div.addEventListener("mouseover", function () {
+      div.style.backgroundColor = "rgba(255, 0, 149, 0.411)";
+    });
+  });
 }
